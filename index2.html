@@ -1,0 +1,1608 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#0f0a04" />
+    <title>لا كوتشينا — مطعم إيطالي فاخر</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Tajawal:wght@300;400;500;700&family=Dancing+Script:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0f0a04;
+        --surface: #1a1208;
+        --card: #231a0a;
+        --border: rgba(210, 160, 60, 0.14);
+        --border2: rgba(210, 160, 60, 0.35);
+        --gold: #d4a03c;
+        --gold2: #e8c06a;
+        --gold3: #f5dfa0;
+        --red: #c0392b;
+        --red2: #e74c3c;
+        --cream: #fdf5e4;
+        --ink: #f0e8d0;
+        --muted: #8a7050;
+        --muted2: #b09060;
+        --green: #27ae60;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Tajawal", sans-serif;
+        font-weight: 400;
+        overflow-x: hidden;
+        line-height: 1.7;
+      }
+      img {
+        display: block;
+        width: 100%;
+        object-fit: cover;
+      }
+      button {
+        cursor: pointer;
+        font-family: inherit;
+        border: none;
+        background: none;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      ::-webkit-scrollbar {
+        width: 5px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--gold);
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg);
+      }
+
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 200;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.9rem 3rem;
+        transition: all 0.35s ease;
+      }
+      nav.scrolled {
+        background: rgba(15, 10, 4, 0.95);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border2);
+        padding: 0.7rem 3rem;
+      }
+      .nav-logo {
+        font-family: "Dancing Script", cursive;
+        font-size: 1.9rem;
+        color: var(--gold2);
+        letter-spacing: 0.02em;
+        text-shadow: 0 0 30px rgba(212, 160, 60, 0.3);
+      }
+      .nav-logo span {
+        color: var(--red2);
+      }
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+        align-items: center;
+      }
+      .nav-links a {
+        font-size: 0.88rem;
+        color: var(--muted2);
+        letter-spacing: 0.06em;
+        transition: color 0.2s;
+        font-weight: 500;
+      }
+      .nav-links a:hover {
+        color: var(--gold2);
+      }
+      .nav-cta {
+        background: var(--gold);
+        color: #1a0a00;
+        padding: 0.5rem 1.4rem;
+        border-radius: 30px;
+        font-weight: 700;
+        font-size: 0.85rem;
+        transition: all 0.25s;
+      }
+      .nav-cta:hover {
+        background: var(--gold2);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(212, 160, 60, 0.35);
+      }
+
+      .hbg {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        padding: 4px;
+        z-index: 201;
+      }
+      .hbg span {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: var(--gold2);
+        border-radius: 2px;
+        transition: all 0.3s;
+      }
+      .hbg.open span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      .hbg.open span:nth-child(2) {
+        opacity: 0;
+      }
+      .hbg.open span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
+      .mob-menu {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(10, 6, 2, 0.98);
+        backdrop-filter: blur(20px);
+        z-index: 199;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2.2rem;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .mob-menu.open {
+        opacity: 1;
+      }
+      .mob-menu a {
+        font-family: "Playfair Display", serif;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--muted2);
+        transition: color 0.2s;
+      }
+      .mob-menu a:hover {
+        color: var(--gold2);
+      }
+
+      #hero {
+        min-height: 100svh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        padding: 6rem 2rem 4rem;
+      }
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        background-image: url("https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1600&q=80");
+        background-size: cover;
+        background-position: center;
+        filter: brightness(0.28) saturate(1.2);
+        transform: scale(1.05);
+        animation: heroZoom 16s ease-in-out infinite alternate;
+      }
+      @keyframes heroZoom {
+        from {
+          transform: scale(1.05);
+        }
+        to {
+          transform: scale(1.12);
+        }
+      }
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(to bottom, transparent 40%, var(--bg) 100%),
+          radial-gradient(
+            ellipse at center,
+            rgba(212, 160, 60, 0.07) 0%,
+            transparent 70%
+          );
+      }
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 700px;
+      }
+      .hero-badge {
+        display: inline-block;
+        font-size: 0.75rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--gold);
+        border: 1px solid var(--border2);
+        padding: 0.4rem 1.2rem;
+        border-radius: 30px;
+        margin-bottom: 1.5rem;
+        background: rgba(212, 160, 60, 0.08);
+        animation: fadeUp 0.6s 0.2s both;
+      }
+      .hero-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2.8rem, 9vw, 6.5rem);
+        font-weight: 900;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        margin-bottom: 0.4rem;
+        animation: fadeUp 0.6s 0.35s both;
+      }
+      .hero-title .hl {
+        display: block;
+        background: linear-gradient(
+          135deg,
+          var(--gold) 0%,
+          var(--gold2) 50%,
+          var(--gold3) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .hero-sub {
+        font-family: "Dancing Script", cursive;
+        font-size: clamp(1.1rem, 3vw, 1.7rem);
+        color: var(--muted2);
+        margin-bottom: 2rem;
+        animation: fadeUp 0.6s 0.5s both;
+      }
+      .hero-btns {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        animation: fadeUp 0.6s 0.65s both;
+      }
+      .btn-gold {
+        background: var(--gold);
+        color: #1a0a00;
+        padding: 0.85rem 2.2rem;
+        border-radius: 40px;
+        font-weight: 700;
+        font-size: 0.92rem;
+        transition: all 0.25s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .btn-gold:hover {
+        background: var(--gold2);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(212, 160, 60, 0.4);
+      }
+      .btn-outline {
+        border: 1px solid var(--border2);
+        color: var(--gold2);
+        padding: 0.85rem 2.2rem;
+        border-radius: 40px;
+        font-weight: 500;
+        font-size: 0.92rem;
+        transition: all 0.25s;
+      }
+      .btn-outline:hover {
+        background: rgba(212, 160, 60, 0.12);
+        border-color: var(--gold2);
+        transform: translateY(-3px);
+      }
+
+      .scroll-ind {
+        position: absolute;
+        bottom: 2.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--muted);
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        animation: fadeUp 0.6s 0.9s both;
+      }
+      .scroll-ind::after {
+        content: "";
+        width: 1px;
+        height: 40px;
+        background: linear-gradient(to bottom, var(--gold2), transparent);
+        animation: scrollAnim 1.8s ease-in-out infinite;
+      }
+      @keyframes scrollAnim {
+        0%,
+        100% {
+          opacity: 0;
+          transform: scaleY(0);
+          transform-origin: top;
+        }
+        50% {
+          opacity: 1;
+          transform: scaleY(1);
+        }
+      }
+
+      .section {
+        padding: 6rem 2rem;
+      }
+      .section-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .sec-label {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-size: 0.72rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 0.8rem;
+      }
+      .sec-label::before {
+        content: "";
+        display: block;
+        width: 30px;
+        height: 1px;
+        background: var(--gold);
+      }
+      .sec-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2rem, 5vw, 3.2rem);
+        font-weight: 700;
+        line-height: 1.15;
+        margin-bottom: 0.5rem;
+      }
+      .sec-title em {
+        color: var(--gold2);
+        font-style: italic;
+      }
+      .sec-desc {
+        color: var(--muted2);
+        font-size: 1rem;
+        max-width: 500px;
+        line-height: 1.8;
+      }
+
+      #stats {
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+      }
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      .stat-item {
+        padding: 2.5rem 2rem;
+        text-align: center;
+        border-left: 1px solid var(--border);
+        position: relative;
+        transition: background 0.25s;
+      }
+      .stat-item:last-child {
+        border-left: none;
+      }
+      .stat-item:hover {
+        background: rgba(212, 160, 60, 0.04);
+      }
+      .stat-num {
+        font-family: "Playfair Display", serif;
+        font-size: 2.8rem;
+        font-weight: 700;
+        color: var(--gold2);
+        line-height: 1;
+        margin-bottom: 0.3rem;
+      }
+      .stat-lbl {
+        font-size: 0.8rem;
+        color: var(--muted);
+        letter-spacing: 0.08em;
+      }
+
+      #menu {
+        background: var(--bg);
+      }
+      .menu-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin-bottom: 3.5rem;
+      }
+
+      .cat-tabs {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin-bottom: 3rem;
+      }
+      .cat-tab {
+        padding: 0.55rem 1.4rem;
+        border-radius: 30px;
+        border: 1px solid var(--border);
+        color: var(--muted2);
+        font-size: 0.88rem;
+        font-weight: 500;
+        transition: all 0.25s;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+      .cat-tab:hover {
+        border-color: var(--gold2);
+        color: var(--gold2);
+      }
+      .cat-tab.active {
+        background: var(--gold);
+        color: #1a0a00;
+        border-color: var(--gold);
+        font-weight: 700;
+      }
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.6rem;
+      }
+
+      .menu-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        cursor: pointer;
+      }
+      .menu-card:hover {
+        transform: translateY(-6px);
+        border-color: var(--border2);
+        box-shadow:
+          0 20px 50px rgba(0, 0, 0, 0.5),
+          0 0 0 1px rgba(212, 160, 60, 0.15);
+      }
+      .menu-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          var(--gold),
+          var(--gold2),
+          var(--red2)
+        );
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.35s ease;
+        z-index: 1;
+      }
+      .menu-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .card-img {
+        height: 220px;
+        overflow: hidden;
+        position: relative;
+      }
+      .card-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+      .menu-card:hover .card-img img {
+        transform: scale(1.08);
+      }
+      .card-badge {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        padding: 0.25rem 0.7rem;
+        border-radius: 20px;
+        text-transform: uppercase;
+      }
+      .badge-hot {
+        background: #c0392b;
+        color: #fff;
+      }
+      .badge-new {
+        background: var(--green);
+        color: #fff;
+      }
+      .badge-best {
+        background: var(--gold);
+        color: #1a0a00;
+      }
+
+      .card-body {
+        padding: 1.2rem 1.3rem 1.4rem;
+      }
+      .card-cat {
+        font-size: 0.7rem;
+        color: var(--gold);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 0.4rem;
+        font-weight: 700;
+      }
+      .card-name {
+        font-family: "Playfair Display", serif;
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--cream);
+        margin-bottom: 0.4rem;
+        line-height: 1.3;
+      }
+      .card-desc {
+        font-size: 0.84rem;
+        color: var(--muted2);
+        line-height: 1.65;
+        margin-bottom: 1rem;
+      }
+      .card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .card-price {
+        font-family: "Playfair Display", serif;
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: var(--gold2);
+      }
+      .card-price small {
+        font-size: 0.72rem;
+        color: var(--muted);
+        font-family: "Tajawal", sans-serif;
+        margin-right: 0.3rem;
+      }
+      .add-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--gold);
+        color: #1a0a00;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.3rem;
+        font-weight: 700;
+        transition: all 0.25s;
+      }
+      .add-btn:hover {
+        background: var(--gold2);
+        transform: scale(1.15);
+        box-shadow: 0 4px 16px rgba(212, 160, 60, 0.4);
+      }
+
+      #drinks {
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+      }
+      .drinks-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 1.2rem;
+      }
+      .drink-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+        transition: all 0.3s;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+      .drink-card:hover {
+        transform: translateY(-4px);
+        border-color: var(--border2);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+      }
+      .drink-img {
+        height: 180px;
+        overflow: hidden;
+      }
+      .drink-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+      }
+      .drink-card:hover .drink-img img {
+        transform: scale(1.08);
+      }
+      .drink-body {
+        padding: 1rem 1.2rem 1.2rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .drink-name {
+        font-family: "Playfair Display", serif;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--cream);
+        margin-bottom: 0.3rem;
+      }
+      .drink-desc {
+        font-size: 0.8rem;
+        color: var(--muted2);
+        line-height: 1.6;
+        flex: 1;
+        margin-bottom: 0.8rem;
+      }
+      .drink-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .drink-price {
+        font-family: "Playfair Display", serif;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--gold2);
+      }
+      .drink-size {
+        font-size: 0.7rem;
+        color: var(--muted);
+        margin-top: 0.1rem;
+      }
+
+      #about {
+        background: var(--bg);
+        overflow: hidden;
+      }
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .about-imgs {
+        position: relative;
+        height: 520px;
+      }
+      .about-img-main {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 75%;
+        height: 85%;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+      }
+      .about-img-float {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 52%;
+        height: 52%;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 3px solid var(--card);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+      }
+      .about-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        background: rgba(212, 160, 60, 0.1);
+        border: 1px solid var(--border2);
+        border-radius: 30px;
+        padding: 0.4rem 1rem;
+        font-size: 0.75rem;
+        color: var(--gold2);
+        margin-bottom: 1.5rem;
+      }
+      .about-body p {
+        color: var(--muted2);
+        line-height: 1.9;
+        margin-bottom: 1rem;
+        font-size: 0.95rem;
+      }
+      .about-features {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+      .feat {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.8rem;
+        padding: 1rem;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        transition: border-color 0.2s;
+      }
+      .feat:hover {
+        border-color: var(--border2);
+      }
+      .feat-icon {
+        font-size: 1.4rem;
+        flex-shrink: 0;
+        margin-top: 0.1rem;
+      }
+      .feat-text strong {
+        display: block;
+        font-size: 0.88rem;
+        color: var(--cream);
+        margin-bottom: 0.2rem;
+      }
+      .feat-text span {
+        font-size: 0.78rem;
+        color: var(--muted);
+      }
+
+      #contact-strip {
+        background: linear-gradient(135deg, var(--surface), var(--card));
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        padding: 3rem 2rem;
+        text-align: center;
+      }
+      .contact-strip-inner {
+        max-width: 700px;
+        margin: 0 auto;
+      }
+      .contact-strip-inner h2 {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(1.6rem, 4vw, 2.5rem);
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+      .contact-strip-inner p {
+        color: var(--muted2);
+        margin-bottom: 1.8rem;
+        font-size: 0.95rem;
+      }
+      .contact-links {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .contact-chip {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        background: var(--card);
+        border: 1px solid var(--border);
+        padding: 0.65rem 1.4rem;
+        border-radius: 30px;
+        font-size: 0.88rem;
+        color: var(--ink);
+        transition: all 0.25s;
+      }
+      .contact-chip:hover {
+        border-color: var(--gold2);
+        color: var(--gold2);
+        transform: translateY(-2px);
+      }
+      .contact-chip .ci {
+        font-size: 1rem;
+      }
+
+      footer {
+        background: var(--bg);
+        border-top: 1px solid var(--border);
+        padding: 2rem 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .footer-logo {
+        font-family: "Dancing Script", cursive;
+        font-size: 1.5rem;
+        color: var(--gold2);
+      }
+      .footer-copy {
+        font-size: 0.75rem;
+        color: var(--muted);
+      }
+      .footer-links {
+        display: flex;
+        gap: 1.5rem;
+      }
+      .footer-links a {
+        font-size: 0.8rem;
+        color: var(--muted);
+        transition: color 0.2s;
+      }
+      .footer-links a:hover {
+        color: var(--gold2);
+      }
+
+      #cart-btn {
+        position: fixed;
+        bottom: 2rem;
+        left: 2rem;
+        z-index: 300;
+        background: var(--gold);
+        color: #1a0a00;
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        box-shadow: 0 8px 30px rgba(212, 160, 60, 0.5);
+        transition: all 0.25s;
+        transform: scale(0);
+        opacity: 0;
+      }
+      #cart-btn.show {
+        transform: scale(1);
+        opacity: 1;
+      }
+      #cart-btn:hover {
+        transform: scale(1.1);
+        background: var(--gold2);
+        box-shadow: 0 12px 40px rgba(212, 160, 60, 0.6);
+      }
+      .cart-badge {
+        position: absolute;
+        top: -4px;
+        right: -4px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--red2);
+        color: #fff;
+        font-size: 0.65rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid var(--bg);
+      }
+
+      #toast {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        z-index: 500;
+        background: var(--card);
+        border: 1px solid var(--border2);
+        color: var(--gold3);
+        padding: 0.8rem 1.4rem;
+        border-radius: 10px;
+        font-size: 0.85rem;
+        transform: translateY(80px);
+        opacity: 0;
+        transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        max-width: 260px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      }
+      #toast.show {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-l {
+        opacity: 0;
+        transform: translateX(-28px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+      .reveal-l.visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      .reveal-r {
+        opacity: 0;
+        transform: translateX(28px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+      .reveal-r.visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 960px) {
+        .about-grid {
+          grid-template-columns: 1fr;
+          gap: 3rem;
+        }
+        .about-imgs {
+          height: 360px;
+        }
+        .stats-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .stat-item:nth-child(2) {
+          border-left: none;
+        }
+        .stat-item:nth-child(3) {
+          border-top: 1px solid var(--border);
+        }
+        .stat-item:nth-child(4) {
+          border-top: 1px solid var(--border);
+          border-left: none;
+        }
+      }
+      @media (max-width: 700px) {
+        nav {
+          padding: 0.8rem 1.2rem;
+        }
+        .nav-links {
+          display: none;
+        }
+        .hbg {
+          display: flex;
+        }
+        .mob-menu {
+          display: flex;
+        }
+        .section {
+          padding: 4rem 1.2rem;
+        }
+        .menu-grid {
+          grid-template-columns: 1fr;
+        }
+        .drinks-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .stats-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        footer {
+          flex-direction: column;
+          text-align: center;
+          padding: 1.5rem;
+        }
+        .hero-btns {
+          flex-direction: column;
+          align-items: center;
+        }
+        .about-features {
+          grid-template-columns: 1fr;
+        }
+        #cart-btn {
+          bottom: 1.2rem;
+          left: 1.2rem;
+          width: 52px;
+          height: 52px;
+        }
+        #toast {
+          bottom: 1.2rem;
+          right: 1.2rem;
+        }
+      }
+      @media (max-width: 420px) {
+        .drinks-grid {
+          grid-template-columns: 1fr;
+        }
+        .cat-tabs {
+          gap: 0.4rem;
+        }
+        .cat-tab {
+          padding: 0.45rem 1rem;
+          font-size: 0.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="toast"></div>
+
+    <button id="cart-btn" onclick="alert('سيتم إضافة سلة التسوق قريباً!')">
+      🛒
+      <span class="cart-badge" id="cart-count">0</span>
+    </button>
+
+    <!-- Mobile menu -->
+    <div class="mob-menu" id="mob-menu">
+      <a href="#menu" onclick="closeMenu()">القائمة</a>
+      <a href="#drinks" onclick="closeMenu()">المشروبات</a>
+      <a href="#about" onclick="closeMenu()">من نحن</a>
+      <a href="#contact-strip" onclick="closeMenu()">تواصل</a>
+    </div>
+
+    <!-- NAV -->
+    <nav id="nav">
+      <div class="nav-logo">لا <span>كو</span>تشينا</div>
+      <ul class="nav-links">
+        <li><a href="#menu">القائمة</a></li>
+        <li><a href="#drinks">المشروبات</a></li>
+        <li><a href="#about">من نحن</a></li>
+        <li><a href="#contact-strip" class="nav-cta">احجز طاولة</a></li>
+      </ul>
+      <button class="hbg" id="hbg" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <section id="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-badge">✦ مطعم إيطالي فاخر ✦</div>
+        <h1 class="hero-title">
+          تجربة طعام
+          <span class="hl">لا تُنسى</span>
+        </h1>
+        <p class="hero-sub">أصالة الطعم الإيطالي في قلب المدينة</p>
+        <div class="hero-btns">
+          <a href="#menu" class="btn-gold">🍽️ تصفح القائمة</a>
+          <a href="#contact-strip" class="btn-outline">📞 احجز طاولة</a>
+        </div>
+      </div>
+      <div class="scroll-ind">اكتشف</div>
+    </section>
+
+    <section id="stats">
+      <div class="stats-grid">
+        <div class="stat-item reveal">
+          <div class="stat-num">١٢+</div>
+          <div class="stat-lbl">سنة خبرة</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="stat-num">٥٠+</div>
+          <div class="stat-lbl">طبق متميز</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="stat-num">٤.٩</div>
+          <div class="stat-lbl">تقييم العملاء</div>
+        </div>
+        <div class="stat-item reveal">
+          <div class="stat-num">٢٠ ألف+</div>
+          <div class="stat-lbl">عميل سعيد</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="menu" class="section">
+      <div class="section-inner">
+        <div class="menu-header">
+          <div>
+            <div class="sec-label reveal">قائمة الطعام</div>
+            <h2 class="sec-title reveal">أطباقنا <em>المميزة</em></h2>
+            <p class="sec-desc reveal">
+              محضّرة يومياً من أجود المكونات الطازجة
+            </p>
+          </div>
+        </div>
+
+        <div class="cat-tabs reveal">
+          <button class="cat-tab active" onclick="filterMenu('all', this)">
+            🍽️ الكل
+          </button>
+          <button class="cat-tab" onclick="filterMenu('pasta', this)">
+            🍝 مكرونة
+          </button>
+          <button class="cat-tab" onclick="filterMenu('pizza', this)">
+            🍕 بيتزا
+          </button>
+          <button class="cat-tab" onclick="filterMenu('meat', this)">
+            🥩 لحوم
+          </button>
+        </div>
+
+        <div class="menu-grid" id="menu-grid"></div>
+      </div>
+    </section>
+
+    <section id="drinks" class="section">
+      <div class="section-inner">
+        <div class="menu-header">
+          <div>
+            <div class="sec-label reveal">المشروبات</div>
+            <h2 class="sec-title reveal">قسم <em>المشروبات</em></h2>
+            <p class="sec-desc reveal">
+              مشروبات منعشة وطبيعية لتكمل وجبتك المميزة
+            </p>
+          </div>
+        </div>
+        <div class="drinks-grid" id="drinks-grid"></div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="about-grid">
+        <div class="about-imgs reveal-l">
+          <div class="about-img-main">
+            <img
+              src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80"
+              alt="مطبخنا"
+            />
+          </div>
+          <div class="about-img-float">
+            <img
+              src="https://images.unsplash.com/photo-1600565193348-f74bd3960d24?w=400&q=80"
+              alt="طاهينا"
+            />
+          </div>
+        </div>
+        <div class="about-body reveal-r">
+          <div class="about-tag">🌿 قصتنا منذ ٢٠١٢</div>
+          <div class="sec-label">من نحن</div>
+          <h2 class="sec-title">شغف <em>الطهي</em> الإيطالي</h2>
+          <p>
+            بدأنا رحلتنا في عام ٢٠١٢ بحلم بسيط: تقديم أصيل الطعام الإيطالي بأجود
+            المكونات وأحدث الأساليب. اليوم نفخر بأن نكون وجهة كل محب للطعام
+            الراقي.
+          </p>
+          <p>
+            كل طبق هو قصيدة تحكيها أيدي طهاتنا المتمرسين الذين درسوا فن الطهي في
+            إيطاليا وعادوا بأسرار النكهة الأصيلة.
+          </p>
+          <div class="about-features">
+            <div class="feat">
+              <div class="feat-icon">🌱</div>
+              <div class="feat-text">
+                <strong>مكونات طازجة</strong>
+                <span>نختار يومياً أفضل المنتجات</span>
+              </div>
+            </div>
+            <div class="feat">
+              <div class="feat-icon">👨‍🍳</div>
+              <div class="feat-text">
+                <strong>طهاة محترفون</strong>
+                <span>خبرة ١٠+ سنوات في إيطاليا</span>
+              </div>
+            </div>
+            <div class="feat">
+              <div class="feat-icon">🚚</div>
+              <div class="feat-text">
+                <strong>توصيل سريع</strong>
+                <span>خلال ٣٠ دقيقة لبابك</span>
+              </div>
+            </div>
+            <div class="feat">
+              <div class="feat-icon">⭐</div>
+              <div class="feat-text">
+                <strong>جودة مضمونة</strong>
+                <span>أو يصلك الطلب مجاناً</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="contact-strip">
+      <div class="contact-strip-inner">
+        <h2 class="reveal">
+          احجز طاولتك
+          <em style="color: var(--gold2); font-style: italic">الآن</em>
+        </h2>
+        <p class="reveal">نسعد بخدمتك — تواصل معنا لحجز طاولة أو طلب التوصيل</p>
+        <div class="contact-links reveal">
+          <a href="tel:+966500000000" class="contact-chip">
+            <span class="ci">📞</span> +966 50 000 0000
+          </a>
+          <a href="https://wa.me/966500000000" class="contact-chip">
+            <span class="ci">💬</span> واتساب
+          </a>
+          <a href="#" class="contact-chip">
+            <span class="ci">📍</span> الرياض — حي العليا
+          </a>
+          <a href="#" class="contact-chip">
+            <span class="ci">🕐</span> ١٢ظ — ١٢ص
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-logo">لا كوتشينا</div>
+      <div class="footer-copy">© 2025 لا كوتشينا — جميع الحقوق محفوظة</div>
+      <div class="footer-links">
+        <a href="#">سياسة الخصوصية</a>
+        <a href="#">الشروط</a>
+        <a href="#">تواصل</a>
+      </div>
+    </footer>
+
+    <script>
+      const MENU = [
+        {
+          id: 1,
+          cat: "pasta",
+          name: "باستا كاربونارا",
+          badge: "best",
+          desc: "مكرونة سباغيتي مع صلصة الكريمة والبيض ولحم البانشيتا وجبن البارميزان الأصلي",
+          price: 89,
+          img: "https://images.unsplash.com/photo-1612874742237-6526221588e3?w=600&q=80",
+        },
+        {
+          id: 2,
+          cat: "pasta",
+          name: "فيتوتشيني ألفريدو",
+          badge: "",
+          desc: "مكرونة فيتوتشيني واسعة بصلصة الكريمة الغنية والثوم المحمص وجبن الروماني",
+          price: 79,
+          img: "https://images.unsplash.com/photo-1645112411341-6c4fd023714a?w=600&q=80",
+        },
+        {
+          id: 3,
+          cat: "pasta",
+          name: "بينيه أرابياتا",
+          badge: "hot",
+          desc: "مكرونة قصيرة بصلصة الطماطم الحارة والثوم والريحان الطازج وزيت الزيتون البكر",
+          price: 69,
+          img: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=600&q=80",
+        },
+        {
+          id: 4,
+          cat: "pasta",
+          name: "لازانيا بولونيز",
+          badge: "new",
+          desc: "طبقات من المكرونة الرقيقة مع صلصة اللحم المفروم والطماطم وجبن البيشاميل",
+          price: 99,
+          img: "https://images.unsplash.com/photo-1574894709920-11b28e7367e3?w=600&q=80",
+        },
+        {
+          id: 5,
+          cat: "pasta",
+          name: "ريزوتو الفطر",
+          badge: "",
+          desc: "أرز ريزوتو كريمي بالفطر البري والزعفران وجبن البارميزان المبشور",
+          price: 85,
+          img: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=600&q=80",
+        },
+
+        {
+          id: 6,
+          cat: "pizza",
+          name: "بيتزا مارغريتا",
+          badge: "best",
+          desc: "عجينة إيطالية أصيلة بصلصة الطماطم السان مارزانو وجبن الموزاريلا الطازج وريحان",
+          price: 75,
+          img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80",
+        },
+        {
+          id: 7,
+          cat: "pizza",
+          name: "بيتزا بيبيروني",
+          badge: "hot",
+          desc: "طبقة سخية من البيبيروني المحمر فوق صلصة الطماطم وثلاثة أنواع من الجبن",
+          price: 85,
+          img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=600&q=80",
+        },
+        {
+          id: 8,
+          cat: "pizza",
+          name: "بيتزا خضروات",
+          badge: "new",
+          desc: "فلفل ملون وفطر وزيتون وبصل وطماطم كرزية فوق قاعدة الموزاريلا",
+          price: 72,
+          img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80",
+        },
+        {
+          id: 9,
+          cat: "pizza",
+          name: "بيتزا بوفالو",
+          badge: "",
+          desc: "جبن البوفالو الطازج مع الطماطم الطازجة والصنوبر وزيت الزيتون البكر المميز",
+          price: 95,
+          img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80",
+        },
+        {
+          id: 10,
+          cat: "pizza",
+          name: "بيتزا دجاج مشوي",
+          badge: "",
+          desc: "دجاج مشوي متبّل بالأعشاب مع فلفل حلو وصلصة ثوم وجبن الموزاريلا المذاب",
+          price: 88,
+          img: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=600&q=80",
+        },
+        /* MEAT */
+        {
+          id: 11,
+          cat: "meat",
+          name: "ريب آي ستيك",
+          badge: "best",
+          desc: "شريحة لحم بقري عالية الجودة ١٣ أونصة مع البطاطس المشوية وصلصة الفلفل الأسود",
+          price: 185,
+          img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600&q=80",
+        },
+        {
+          id: 12,
+          cat: "meat",
+          name: "لمبشاب مشوي",
+          badge: "hot",
+          desc: "كباب لحم الغنم المتبّل بالأعشاب والثوم مشوي على الفحم مع أرز برياني وسلطة",
+          price: 135,
+          img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80",
+        },
+        {
+          id: 13,
+          cat: "meat",
+          name: "دجاج روستو إيطالي",
+          badge: "new",
+          desc: "دجاج كامل مشوي بالليمون والروزماري والثوم مع البطاطس والخضروات المشكلة",
+          price: 115,
+          img: "https://images.unsplash.com/photo-1598103442097-8b74394b95c8?w=600&q=80",
+        },
+        {
+          id: 14,
+          cat: "meat",
+          name: "تشيكن بارميجيانا",
+          badge: "",
+          desc: "صدر دجاج مقرمش بالبقسماط مع صلصة الطماطم والموزاريلا المذاب في الفرن",
+          price: 99,
+          img: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=600&q=80",
+        },
+      ];
+
+      const DRINKS = [
+        {
+          name: "ليمونادة ريحان",
+          desc: "ليمون طازج مع أوراق الريحان والعسل الطبيعي",
+          price: 25,
+          size: "٤٠٠ مل",
+          img: "https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=400&q=80",
+        },
+        {
+          name: "عصير برتقال طازج",
+          desc: "برتقال مصري طازج يُعصر أمامك",
+          price: 22,
+          size: "٣٥٠ مل",
+          img: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=400&q=80",
+        },
+        {
+          name: "لاتيه ساخن",
+          desc: "قهوة إسبريسو مضاعفة مع حليب محمّص كريمي",
+          price: 28,
+          size: "٣٠٠ مل",
+          img: "https://images.unsplash.com/photo-1561047029-3000c68339ca?w=400&q=80",
+        },
+        {
+          name: "موهيتو موهيتو",
+          desc: "نعناع طازج مع ليمون وسكر وماء فوار",
+          price: 30,
+          size: "٤٥٠ مل",
+          img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&q=80",
+        },
+        {
+          name: "مانجو لاسي",
+          desc: "مانجو طازجة مع لبن زبادي وقليل من الهيل",
+          price: 27,
+          size: "٣٥٠ مل",
+          img: "https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=400&q=80",
+        },
+        {
+          name: "شاي أخضر بالنعناع",
+          desc: "شاي أخضر ياباني مع نعناع طازج وعسل",
+          price: 20,
+          size: "٤٠٠ مل",
+          img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&q=80",
+        },
+        {
+          name: "كابتشينو إيطالي",
+          desc: "إسبريسو ودبل شوت مع رغوة حليب ناعمة وقرفة",
+          price: 30,
+          size: "٢٥٠ مل",
+          img: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=400&q=80",
+        },
+        {
+          name: "سموذي الفراولة",
+          desc: "فراولة طازجة مع موز وحليب لوز وعسل طبيعي",
+          price: 32,
+          size: "٤٠٠ مل",
+          img: "https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=400&q=80",
+        },
+      ];
+
+      let cartCount = 0;
+
+      function badgeHTML(badge) {
+        if (!badge) return "";
+        const map = {
+          hot: "🌶️ الأكثر حرارة",
+          new: "✨ جديد",
+          best: "⭐ الأفضل",
+        };
+        const cls = { hot: "badge-hot", new: "badge-new", best: "badge-best" };
+        return `<div class="card-badge ${cls[badge]}">${map[badge] || badge}</div>`;
+      }
+
+      function catLabel(cat) {
+        return (
+          { pasta: "🍝 مكرونة", pizza: "🍕 بيتزا", meat: "🥩 لحوم" }[cat] || cat
+        );
+      }
+
+      function renderMenu(items) {
+        const grid = document.getElementById("menu-grid");
+        grid.innerHTML = "";
+        items.forEach((item, i) => {
+          const card = document.createElement("div");
+          card.className = "menu-card reveal";
+          card.style.transitionDelay = i * 0.06 + "s";
+          card.innerHTML = `
+      <div class="card-img">
+        <img src="${item.img}" alt="${item.name}" loading="lazy"/>
+        ${badgeHTML(item.badge)}
+      </div>
+      <div class="card-body">
+        <div class="card-cat">${catLabel(item.cat)}</div>
+        <div class="card-name">${item.name}</div>
+        <div class="card-desc">${item.desc}</div>
+        <div class="card-footer">
+          <div class="card-price"><small>ر.س</small>${item.price}</div>
+          <button class="add-btn" onclick="addToCart('${item.name}')">+</button>
+        </div>
+      </div>`;
+          grid.appendChild(card);
+        });
+        observeReveal();
+      }
+
+      function filterMenu(cat, btn) {
+        document
+          .querySelectorAll(".cat-tab")
+          .forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        const filtered =
+          cat === "all" ? MENU : MENU.filter((i) => i.cat === cat);
+        renderMenu(filtered);
+      }
+
+      function renderDrinks() {
+        const grid = document.getElementById("drinks-grid");
+        DRINKS.forEach((d, i) => {
+          const card = document.createElement("div");
+          card.className = "drink-card reveal";
+          card.style.transitionDelay = i * 0.05 + "s";
+          card.innerHTML = `
+      <div class="drink-img">
+        <img src="${d.img}" alt="${d.name}" loading="lazy"/>
+      </div>
+      <div class="drink-body">
+        <div class="drink-name">${d.name}</div>
+        <div class="drink-desc">${d.desc}</div>
+        <div class="drink-footer">
+          <div>
+            <div class="drink-price">ر.س ${d.price}</div>
+            <div class="drink-size">${d.size}</div>
+          </div>
+          <button class="add-btn" onclick="addToCart('${d.name}')">+</button>
+        </div>
+      </div>`;
+          grid.appendChild(card);
+        });
+      }
+
+      function addToCart(name) {
+        cartCount++;
+        document.getElementById("cart-count").textContent = cartCount;
+        document.getElementById("cart-btn").classList.add("show");
+        showToast("✅ تمت الإضافة: " + name);
+      }
+
+      let toastTimer;
+      function showToast(msg) {
+        const el = document.getElementById("toast");
+        el.textContent = msg;
+        el.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => el.classList.remove("show"), 2400);
+      }
+
+      function observeReveal() {
+        const obs = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) e.target.classList.add("visible");
+            });
+          },
+          { threshold: 0.08 },
+        );
+        document
+          .querySelectorAll(".reveal,.reveal-l,.reveal-r")
+          .forEach((el) => obs.observe(el));
+      }
+
+      window.addEventListener("scroll", () => {
+        document
+          .getElementById("nav")
+          .classList.toggle("scrolled", window.scrollY > 60);
+      });
+
+      let menuOpen = false;
+      function toggleMenu() {
+        menuOpen = !menuOpen;
+        const mm = document.getElementById("mob-menu");
+        const hbg = document.getElementById("hbg");
+        if (menuOpen) {
+          mm.style.display = "flex";
+          requestAnimationFrame(() => mm.classList.add("open"));
+          hbg.classList.add("open");
+          document.body.style.overflow = "hidden";
+        } else {
+          closeMenu();
+        }
+      }
+      function closeMenu() {
+        menuOpen = false;
+        const mm = document.getElementById("mob-menu");
+        mm.classList.remove("open");
+        document.getElementById("hbg").classList.remove("open");
+        document.body.style.overflow = "";
+        setTimeout(() => {
+          mm.style.display = "none";
+        }, 300);
+      }
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && menuOpen) closeMenu();
+      });
+
+      renderMenu(MENU);
+      renderDrinks();
+      observeReveal();
+    </script>
+  </body>
+</html>
